@@ -47,7 +47,7 @@
             <!-- B 群組：後台管理群 -->
             <div class="chat-box" id="groupB">
                 <div class="chat-header">
-                    <h2>💼 B 群組：訂單管理群組（後台人員群）</h2>
+                    <h2>�� B 群組：訂單管理群組（後台人員群）</h2>
                 </div>
                 <div class="chat-messages" id="messagesB"></div>
                 <div class="chat-input">
@@ -62,7 +62,7 @@
             <!-- C 群組：司機群 -->
             <div class="chat-box" id="groupC">
                 <div class="chat-header">
-                    <h2>🚙 C 群組：派車群組（司機群）</h2>
+                    <h2>�� C 群組：派車群組（司機群）</h2>
                     <div class="role-mode-selector">
                         <label for="roleMode">角色模式：</label>
                         <select id="roleMode">
@@ -102,6 +102,10 @@
             <div class="status-item">
                 <span>搶單倒數：</span>
                 <span id="countdown">--</span>
+                <div class="countdown-controls" id="countdownControls" style="display: none;">
+                    <button id="endCountdownBtn" class="countdown-btn end-btn">提前截止</button>
+                    <button id="addTimeBtn" class="countdown-btn add-btn">+10秒</button>
+                </div>
             </div>
             <div class="status-item">
                 <span>系統狀態：</span>
@@ -120,6 +124,7 @@
             </button>
             <div id="clearPanel" class="clear-panel" style="display: none;">
                 <button id="clearAllBtn" class="clear-btn">清空所有對話</button>
+                <button id="quickOrderBtn" class="clear-btn">快速新增訂單</button>
             </div>
         </div>
     </div>
