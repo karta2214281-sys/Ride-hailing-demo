@@ -350,6 +350,16 @@ body {
     text-align: center;
 }
 
+/* C群組中的白牌叫車訊息 - 與司機頭貼位置一致 */
+#groupC .message.system {
+    margin: 0 0 20px -4px;
+}
+
+/* C群組中的白牌叫車 - 與A群組白牌叫車樣式一致 */
+#groupC .message.system .avatar-container {
+    align-items: center;
+}
+
 .message.driver .name {
     text-align: left;
 }
@@ -477,9 +487,6 @@ body {
     font-size: 0.7rem !important;
     white-space: nowrap !important;
 }
-
-
-
 
 
 
@@ -877,7 +884,8 @@ body {
 /* 特殊狀態樣式 */
 .countdown-active {
     color: #e53e3e !important;
-    animation: pulse 1s infinite;
+    font-weight: 700;
+    font-size: 1.2rem;
 }
 
 @keyframes pulse {
@@ -892,6 +900,49 @@ body {
 .order-active {
     color: #38a169 !important;
     font-weight: 800;
+}
+
+.status-arrived {
+    color: #2b6cb0 !important;
+    font-weight: 800;
+}
+
+/* 倒數控制按鈕 */
+.countdown-controls {
+    display: inline-flex;
+    gap: 8px;
+    margin-left: 10px;
+}
+
+.countdown-btn {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: translateY(-2px);
+}
+
+.end-btn {
+    background: #e53e3e;
+    color: white;
+}
+
+.end-btn:hover {
+    background: #c53030;
+    transform: translateY(-3px);
+}
+
+.add-btn {
+    background: #38a169;
+    color: white;
+}
+
+.add-btn:hover {
+    background: #2f855a;
+    transform: translateY(-3px);
 }
 
 /* 右下角清空按鈕容器 */
@@ -975,9 +1026,25 @@ body {
     font-weight: 600;
     transition: all 0.3s ease;
     white-space: nowrap;
+    margin-bottom: 8px;
+}
+
+.clear-panel .clear-btn:last-child {
+    margin-bottom: 0;
 }
 
 .clear-panel .clear-btn:hover {
     background: #c53030;
+    transform: translateY(-2px);
+}
+
+/* 快速新增訂單按鈕特殊樣式 */
+#quickOrderBtn {
+    background: #4a5568 !important;
+    color: white !important;
+}
+
+#quickOrderBtn:hover {
+    background: #2d3748 !important;
     transform: translateY(-2px);
 }
