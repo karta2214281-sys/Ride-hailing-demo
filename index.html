@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>白牌叫車 Demo 系統</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+
+
+        <!-- 三個對話框容器 -->
+        <div class="chat-container">
+            <!-- A 群組：客戶群 -->
+            <div class="chat-box" id="groupA">
+                <div class="chat-header">
+                    <h2>📱 A 群組：AA/叫車群組（客戶群）</h2>
+                    <div class="role-mode-selector">
+                        <label for="roleModeA">角色模式：</label>
+                        <select id="roleModeA">
+                            <option value="customer">客戶模式</option>
+                            <option value="admin">後台人員模式</option>
+                        </select>
+                    </div>
+                    <div class="role-selector" id="customerSelector">
+                        <label for="customerName">客戶名稱：</label>
+                        <select id="customerName">
+                            <option value="潘潘">潘潘</option>
+                            <option value="白白">白白</option>
+                            <option value="陶陶">陶陶</option>
+                        </select>
+                    </div>
+                    <div class="role-selector" id="adminSelectorA" style="display: none;">
+                    </div>
+                </div>
+                <div class="chat-messages" id="messagesA"></div>
+                <div class="chat-input">
+                    <textarea id="inputA" placeholder="輸入 @白牌叫車 + 地址 + [特殊需求]" rows="1"></textarea>
+                    <button id="sendBtnA">發送</button>
+                    <div id="autocompleteA" class="autocomplete-panel" style="display: none;">
+                        <div class="autocomplete-item" data-value="@白牌叫車">@白牌叫車</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- B 群組：後台管理群 -->
+            <div class="chat-box" id="groupB">
+                <div class="chat-header">
+                    <h2>💼 B 群組：訂單管理群組（後台人員群）</h2>
+                </div>
+                <div class="chat-messages" id="messagesB"></div>
+                <div class="chat-input">
+                    <textarea id="inputB" placeholder="後台管理訊息" rows="1"></textarea>
+                    <button id="sendBtnB">發送</button>
+                    <div id="autocompleteB" class="autocomplete-panel" style="display: none;">
+                        <div class="autocomplete-item" data-value="@白牌叫車">@白牌叫車</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- C 群組：司機群 -->
+            <div class="chat-box" id="groupC">
+                <div class="chat-header">
+                    <h2>🚙 C 群組：派車群組（司機群）</h2>
+                    <div class="role-mode-selector">
+                        <label for="roleMode">角色模式：</label>
+                        <select id="roleMode">
+                            <option value="admin">後台人員模式</option>
+                            <option value="driver">司機模式</option>
+                        </select>
+                    </div>
+                    <div class="role-selector" id="driverSelector" style="display: none;">
+                        <label for="driverName">司機名稱：</label>
+                        <select id="driverName">
+                            <option value="甲司機">甲司機</option>
+                            <option value="乙司機">乙司機</option>
+                            <option value="丙司機">丙司機</option>
+                            <option value="丁司機">丁司機</option>
+                        </select>
+                    </div>
+                    <div class="role-selector" id="adminSelector" style="display: none;">
+                    </div>
+                </div>
+                <div class="chat-messages" id="messagesC"></div>
+                <div class="chat-input">
+                    <textarea id="inputC" placeholder="後台管理訊息" rows="1"></textarea>
+                    <button id="sendBtnC">發送</button>
+                    <div id="autocompleteC" class="autocomplete-panel" style="display: none;">
+                        <div class="autocomplete-item" data-value="@白牌叫車">@白牌叫車</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 系統狀態顯示 -->
+        <div class="system-status">
+            <div class="status-item">
+                <span>當前訂單編號：</span>
+                <span id="currentOrderNumber">A001</span>
+            </div>
+            <div class="status-item">
+                <span>搶單倒數：</span>
+                <span id="countdown">--</span>
+            </div>
+            <div class="status-item">
+                <span>系統狀態：</span>
+                <span id="systemStatus">待機中</span>
+            </div>
+        </div>
+        
+        <!-- 清空按鈕移至右下角 -->
+        <div class="clear-button-container">
+            <button id="toggleClearBtn" class="toggle-btn">
+                <svg class="gear-icon" height="20" viewBox="0 0 32 32" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <g id="Layer_2" data-name="Layer 2">
+                        <path d="m29.21 11.84a3.92 3.92 0 0 1 -3.09-5.3 1.84 1.84 0 0 0 -.55-2.07 14.75 14.75 0 0 0 -4.4-2.55 1.85 1.85 0 0 0 -2.09.58 3.91 3.91 0 0 1 -6.16 0 1.85 1.85 0 0 0 -2.09-.58 14.82 14.82 0 0 0 -4.1 2.3 1.86 1.86 0 0 0 -.58 2.13 3.9 3.9 0 0 1 -3.25 5.36 1.85 1.85 0 0 0 -1.62 1.49 14.14 14.14 0 0 0 -.28 2.8 14.32 14.32 0 0 0 .19 2.35 1.85 1.85 0 0 0 1.63 1.55 3.9 3.9 0 0 1 3.18 5.51 1.82 1.82 0 0 0 .51 2.18 14.86 14.86 0 0 0 4.36 2.51 2 2 0 0 0 .63.11 1.84 1.84 0 0 0 1.5-.78 3.87 3.87 0 0 1 3.2-1.68 3.92 3.92 0 0 1 3.14 1.58 1.84 1.84 0 0 0 2.16.61 15 15 0 0 0 4-2.39 1.85 1.85 0 0 0 .54-2.11 3.9 3.9 0 0 1 3.13-5.39 1.85 1.85 0 0 0 1.57-1.52 14.5 14.5 0 0 0 .26-2.53 14.35 14.35 0 0 0 -.25-2.67 1.83 1.83 0 0 0 -1.54-1.49zm-8.21 4.16a5 5 0 1 1 -5-5 5 5 0 0 1 5 5z" fill="white"/>
+                    </g>
+                </svg>
+            </button>
+            <div id="clearPanel" class="clear-panel" style="display: none;">
+                <button id="clearAllBtn" class="clear-btn">清空所有對話</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 確認清空對話框 -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <h3>確認清空</h3>
+            <p>確定要清空所有對話記錄嗎？此操作無法復原。</p>
+            <div class="modal-buttons">
+                <button id="confirmClearBtn">確定清空</button>
+                <button id="cancelClearBtn">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
