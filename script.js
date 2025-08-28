@@ -485,20 +485,27 @@ class TaxiSystem {
 
     // 處理司機抵達確認
     processDriverArrival(message) {
+        // 先顯示司機的抵達訊息
+        this.addMessage('C', this.driverName, message, 'driver');
+        
         // 檢查是否為正確的司機
         if (this.driverName !== this.currentOrder.assignedDriver.driver) {
-            // 不是正確的司機，顯示錯誤訊息
-            this.addMessage('C', '白牌叫車', `@${this.driverName} 您不是此訂單的指派司機`, 'system');
+            // 不是正確的司機，延遲顯示錯誤訊息
+            setTimeout(() => {
+                this.addMessage('C', '白牌叫車', `@${this.driverName} 您不是此訂單的指派司機`, 'system');
+            }, 500);
             return;
         }
 
-        // 是正確的司機，處理抵達確認
-        this.addMessage('C', this.driverName, message, 'driver');
+        // 是正確的司機，延遲一點時間再發送C群組的確認回應
+        setTimeout(() => {
+            this.addMessage('C', '白牌叫車', `@${this.driverName} 收到 將為您通知乘客`, 'system');
+        }, 500);
         
-        // 延遲一點時間再發送系統回應
+        // 再延遲一點時間發送到B群組
         setTimeout(() => {
             this.sendArrivalNotification();
-        }, 500);
+        }, 1000);
     }
 
     // 發送抵達通知到B群組
